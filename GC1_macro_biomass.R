@@ -39,8 +39,8 @@ ellipsoid<-GC1_macro%>%
   mutate(Volume=L*(W/2)^2*pi*4/3)
 GC1<-rbind(LW2C,cone,cylinder,ellipsoid)
 GC1_macro_OC<-GC1%>%
-  mutate(DryW=Volume*1.13)%>%
-  mutate(OC=DryW*0.043)
+  mutate(DryW=Volume*1.13)%>% #DryW(mg)=volume(mm3)*1.13(g/cm3=mg/mm3)
+  mutate(OC=DryW*0.043) #0.043 (fraction)
 
 colnames(GC1_macro_OC)
 
