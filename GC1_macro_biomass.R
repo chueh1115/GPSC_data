@@ -57,3 +57,5 @@ y %>%
 
 #0.008659015
 area<-pi*(10.5/2)^2/10000#m2
+MAC<-mean(y$OC)/area
+unique(y$Cruise)
