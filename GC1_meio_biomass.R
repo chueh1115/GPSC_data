@@ -36,6 +36,6 @@ y %>%
   geom_point(position = "jitter", color = "red")+
   geom_hline(yintercept = mean(y$OC)/area, linetype = 2, color = "blue")+
   ylab("OC/area(mgC/m2)")
-
+MEI<-mean(y$OC)/area
 #0.008659015
 area<-pi*(3/2)^2/10000#m2
