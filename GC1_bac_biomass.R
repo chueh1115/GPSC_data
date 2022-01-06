@@ -3,21 +3,24 @@ library(readxl)
 library(dplyr)
 GPSC_bac <- read_excel("data/GPSC_bact/GPSC_bacteria_count_OR1-1190.xlsx")
 GPSC_bac %>% select(`Bacterial Cell Count`) 
-GC1_bac_count<-data.frame(time=seq(1:10),
-                             count=as.numeric(unlist(GPSC_bac[2:11,2])))
-library(ggplot2)
-ggplot(data=GC1_bac_count,aes(x=time, y=count))+
-  geom_point()
-
-
 A<-9^2*pi   #well area (mm^2)
 a<-0.11^2*pi #view area (mm^2)
-V<-0.1/2    #sample volume	(ml)
-GC1_bac_num<-mean(GC1_bac_count*A/a/V)#count* A/a/V = # bac/ ml
+V<-0.1/2    #sample volume	(ml=cm3)
+GC1_bac<-data.frame(time=seq(1:10),
+                    count=as.numeric(unlist(GPSC_bac[2:11,2])))
 
-area<-pi*(3/2)^2/10000#m2
+GC1_bac<-GC1_bac %>% 
+  mutate(num=count*A/a/V) %>% #count* A/a/V *10 cm = # bac/ cm3
+  mutate(biomass=num*10*10*10^(-12)/10^(-4))
 # Convert to biomass (assuming 10 fgC cell-1, Deming & Capenter 2008)
+# # bac/cm3 * 10cm *10 fgC/bac = #fgC/cm2->*E-12/E-4= # mgC/m2
 
-GC1_bac_biomass<-GC1_bac_num*10*V/1E-12/area #fgC/ml*V(ml)/syringe area(m2)/1E-12=mgC/m2
 
+library(ggplot2)
+ggplot(data=GC1_bac,aes(x=time, y=biomass))+
+  geom_point()+
+  ylab("GC1 Bacteria biomass (mgC/m2)")+
+  geom_hline(yintercept = mean(GC1_bac$biomass))
 
+mean(GC1_bac$biomass)
+sd(GC1_bac$biomass)

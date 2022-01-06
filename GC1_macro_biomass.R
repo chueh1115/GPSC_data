@@ -42,20 +42,36 @@ GC1_macro_OC<-GC1%>%
   mutate(DryW=Volume*1.13)%>% #DryW(mg)=volume(mm3)*1.13(g/cm3=mg/mm3)
   mutate(OC=DryW*0.043) #0.043 (fraction)
 
-colnames(GC1_macro_OC)
-
-y <- GC1_macro_OC %>% 
+y <-GC1_macro_OC %>% 
   group_by(Cruise, Habitat, Station, Deployment, Tube) %>% 
   summarise(OC = sum(OC)) 
+
+#0.008659015
+area<-pi*(10.5/2)^2/10000 #m2
 library(ggplot2)
 y %>% 
   ggplot(aes(x = Cruise, y = OC/area))+
-  geom_boxplot(outlier.shape = NA)+
+  geom_boxplot()+
   geom_point(position = "jitter", color = "red")+
   geom_hline(yintercept = mean(y$OC)/area, linetype = 2, color = "blue")+
   ylab("OC/area(mgC/m2)")
 
-#0.008659015
-area<-pi*(10.5/2)^2/10000#m2
-MAC<-mean(y$OC)/area
-unique(y$Cruise)
+
+MAC<-mean(y$OC/area)
+sd(y$OC/area)
+
+#outlier
+Q <- quantile(y$OC, probs=c(.25, .75), na.rm = FALSE)
+iqr <- IQR(y$OC)
+up <-  Q[2]+1.5*iqr # Upper Range  
+low<- Q[1]-1.5*iqr # Lower Range
+eliminated<- subset(y, y$OC > low & y$OC < up)
+
+eliminated %>% 
+  ggplot(aes(x = Cruise, y = OC/area))+
+  geom_boxplot(outlier.shape = NA)+
+  geom_point(position = "jitter", color = "red")+
+  geom_hline(yintercept = mean(eliminated$OC)/area, linetype = 2, color = "blue")+
+  ylab("OC/area(mgC/m2)")
+mean(eliminated$OC/area)
+sd(eliminated$OC/area)

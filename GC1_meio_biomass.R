@@ -28,7 +28,8 @@ colnames(GC1_meio_OC)
 y <- GC1_meio_OC %>% 
   group_by(Cruise, Habitat, Station, Deployment, Tube,Subcore) %>% 
   summarise(OC = sum(OC))
-
+#0.008659015
+area<-pi*(3/2)^2/10000#m2
 library(ggplot2)
 y %>% 
   ggplot(aes(x = Cruise, y = OC/area))+
@@ -36,6 +37,5 @@ y %>%
   geom_point(position = "jitter", color = "red")+
   geom_hline(yintercept = mean(y$OC)/area, linetype = 2, color = "blue")+
   ylab("OC/area(mgC/m2)")
-MEI<-mean(y$OC)/area
-#0.008659015
-area<-pi*(3/2)^2/10000#m2
+MEI<-mean(y$OC/area)
+sd(y$OC/area)
