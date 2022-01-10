@@ -1,13 +1,15 @@
+rm(list = ls())
 library(doBy)
 library(readxl)
 library(plyr)
 # Diffusive flux
-
+getwd()
+setwd("C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/data/GPSC_o2_profile")
 d_files <- dir(pattern="diffuse_o2_profile.rds", full.names = TRUE)
-
 fx <- readRDS(d_files[1])[[1]]
 for(i in 2:length(d_files)) fx <- rbind(fx, readRDS(d_files[i])[[1]])
 fx$Region <- factor(fx$Region)
+?factor
 fx$Region <- factor(fx$Region, labels=sub("Shoushan", "Kaohsiung", levels(fx$Region)))
 
 # Temperature at profiling experiment
@@ -15,12 +17,11 @@ temp <- read.csv("profile_temp.csv")
 id1 <- with(fx, paste(Cruise, Deployment, Tube))
 id2 <- with(temp, paste(Cruise, Deployment, Tube))
 fx$Temperature <- temp$Temperture[match(id1, id2)]
-
 # In situ temperature
 # CTD data
 ctd <- as.data.frame(read_excel("../GPSC_CTD/GPSC_CTD_2021.08.15.xlsx", sheet=1))
 ctd <- splitBy(~Cruise+Station, ctd)
-
+?splitBy
 # Function to get average of bottom 3 deepest CTD data
 deep_fun <- function(x) {
   dat <- x[order(x$pressure, decreasing=TRUE)[1:3],]
