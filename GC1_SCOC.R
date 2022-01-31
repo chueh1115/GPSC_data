@@ -137,7 +137,7 @@ DOU %>%
   theme_bw()+
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 meanGS1-sdGS1
-#BMU=TOU-DOU
+#BMU=TOU-DOU####
 rm(list = ls())
 #filter GC1/GS1 and not include NOR1_T011(no det data)
 GPSC_TOU <- as.data.frame(read_csv("data/GPSC_incubation/GPSC_TOU.csv"))
