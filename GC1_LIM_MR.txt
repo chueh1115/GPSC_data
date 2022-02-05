@@ -4,14 +4,14 @@ Resp type: 	maintenance respiration
 Units   :   Fluxes: mg C /m2/d
 Standing stocks:    mg C /m2
 
-Tung 2021.01.19
+Tung 2021.02.04
 
 #################################################################
 
 ################################ PARAMETERS 
 ! These are used later to increase the readability of the file (see below)
 !-- Tlim
-Tlim    =0.35
+Tlim    =1.05
 
 !-- Maintenance Respiration
 MEImr= Tlim * 0.01 * MEISS	           
@@ -85,7 +85,6 @@ SED  ->  EXP_S	!Sediment export
 SED  ->  BAC	!SED uptaken by bacteria
 SED  ->  MEI 	!SED uptaken by meiofauna
 SED  ->  MAC 	!SED uptaken by macrofauna
-SED  ->  DIC_W
 
 !-- BACteria
 BAC  ->  SED	!viral lysis

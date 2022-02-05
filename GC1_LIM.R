@@ -6,7 +6,7 @@ library(splus2R)
 #-- Define directory that contains the input file
 DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
 #-- Read the ascii files
-File<- paste(DataDir,"GC1_LIM_RES.input",sep="")  
+File<- paste(DataDir,"GC1_LIM_SCOC_calculated.input",sep="")  
 LIM<- Setup(file=File) 
 #Parsimonious####
 # Find the solution range of each flow
@@ -16,7 +16,7 @@ pars <- Lsei(LIM, parsimonious = TRUE)
 # Print your ranges and parsimonious solution on screen
 SSA<-data.frame(flowSol, parsimonious=pars$X)
 # plot parsimonious result
-plotweb(Flowmatrix(LIM),main="GC1_RES",
+plotweb(Flowmatrix(LIM),main="GC1_calculated RES",
         sub="(mgC/m2/d)",val=F, val.size = 0.6,
         lab.size=0.8)
 
@@ -39,7 +39,7 @@ xs <- xsample(E    = LIM$A,
               jmp  = (xranges[,2] - xranges[,1])/jumpsize,
               x0   = x0,
               iter = iter)
-nameoutput <- "GC1_res_10000_100.Rdata" #1000=iteration
+nameoutput <- "GC1_CR_10000_100.Rdata" #1000=iteration
 save(xs, LIM, file=nameoutput)
 
 #check#### 
@@ -100,12 +100,12 @@ mean(samplerange$percCover, na.rm = T)
 #compare results from SSA and LA method
 name<-LIM$Unknowns
 dotchart(x=pars$X,col = 1,
-         pch=16,xlim = c(0,70))
-points(x=LA$mean,1:17,col=10,pch=18)
-segments(LA$sd,1:17,LA$sd,1:17)
+         pch=16,xlim = c(0,60))
+points(x=LA$mean,1:16,col=10,pch=18)
+segments(LA$sd,1:16,LA$sd,1:16)
 legend("topright",pch=c(16,18,NA),lty=c(NA,NA,1),col=c(1,10,1),
        legend = c("Parsimonious","Montecarlo mean","sd"))
-title(main = "Carbon flows of GC1_res (mgC/m2/d)")
+title(main = "Carbon flows of GC1_CR_res (mgC/m2/d)")
 
 
 #calculate flows####

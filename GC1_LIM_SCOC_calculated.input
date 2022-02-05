@@ -87,7 +87,6 @@ SED  ->  EXP_S	!Sediment export
 SED  ->  BAC	!SED uptaken by bacteria
 SED  ->  MEI 	!SED uptaken by meiofauna
 SED  ->  MAC 	!SED uptaken by macrofauna
-SED  ->  DIC_W
 
 !-- BACteria
 BAC  ->  SED	!viral lysis

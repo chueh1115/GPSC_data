@@ -52,11 +52,86 @@ GS1T<-mean(GS1_CTD$Temperature)
 GC1Tlim<-2* exp((GC1T-20)/10)
 GS1Tlim<-2* exp((GS1T-20)/10)
 
-#plot CTD
+
+#plot CTD####
+rm(list=ls())
+library(ggplot2)
+library(readxl)
+library(dplyr)
+library(ggthemes)
+
+GPSC_CTD<- read_excel("data/GPSC_CTD/GPSC_CTD_2021.08.15.xlsx")
+
+#GC1####
 GC1<-as.data.frame(GPSC_CTD %>%
                          filter(Station=="GC1"&Cruise!="NOR1_T011"))
 GC1$Temperature <- rowMeans(GC1[, c("temperature_T1", "temperature_T2")], na.rm=TRUE)
 GC1$Salinity    <- rowMeans(GC1[, c("salinity_T1C1", "salinity_T2C2")], na.rm=TRUE)
 GC1$Sigma_theta <- rowMeans(GC1[, c("density_T1C1...11", "density_T2C2...12")], na.rm=TRUE)
 GC1$Density     <- rowMeans(GC1[, c("density_T1C1...13", "density_T2C2...14")], na.rm=TRUE)
+
+#plot CTD #down+up data
+library(ggplot2)
+ggplot(data=GC1, aes(x=Temperature, y=pressure, colour=Cruise))+
+  geom_point(size=0.5)+
+  scale_y_reverse()+
+  facet_wrap(~Station, scale="free")
+
+#filter only downward data
+GC1<-GC1 %>% group_split(Cruise)
+GC1_CTD<-NULL
+for (i in 1:11) { 
+  out<-filter(GC1[[i]],!duplicated(GC1[[i]]$pressure,)==T)
+  GC1_CTD<-rbind(GC1_CTD,out)
+} 
+#plot downward CTD data
+ggplot(data=GC1_CTD, aes(x=Temperature, y=pressure, colour=Cruise))+
+  geom_point(size=0.5)+
+  scale_y_reverse()+
+  facet_wrap(~Station, scale="free")+
+  theme_base()
+  
+
+
+
+
+#GS1####
+`%nin%` = Negate(`%in%`)
+GS1<-as.data.frame(GPSC_CTD %>%
+                     filter(Station=="GS1"&Cruise%nin%c("OR1_1132","NOR1_T011")))
+GS1$Temperature <- rowMeans(GS1[, c("temperature_T1", "temperature_T2")], na.rm=TRUE)
+GS1$Salinity    <- rowMeans(GS1[, c("salinity_T1C1", "salinity_T2C2")], na.rm=TRUE)
+GS1$Sigma_theta <- rowMeans(GS1[, c("density_T1C1...11", "density_T2C2...12")], na.rm=TRUE)
+GS1$Density     <- rowMeans(GS1[, c("density_T1C1...13", "density_T2C2...14")], na.rm=TRUE)
+
+#plot CTD #down+up data
+library(ggplot2)
+ggplot(data=GS1, aes(x=Temperature, y=pressure, colour=Cruise))+
+  geom_point(size=0.5)+
+  scale_y_reverse()+
+  facet_wrap(~Station, scale="free")
+
+#filter only downward data
+GS1<-GS1 %>% group_split(Cruise)
+GS1_CTD<-NULL
+for (i in 1:11) { 
+  out<-filter(GS1[[i]],!duplicated(GS1[[i]]$pressure,)==T)
+  GS1_CTD<-rbind(GS1_CTD,out)
+} 
+#plot downward CTD data
+ggplot(data=GS1_CTD, aes(x=Temperature, y=pressure, colour=Cruise))+
+  geom_point(size=0.5)+
+  scale_y_reverse()+
+  facet_wrap(~Station, scale="free")+
+  theme_base()
+#compare by cruise
+GC1GS1<-rbind(GC1_CTD,GS1_CTD)
+ggplot(data=GC1GS1, aes(x=Temperature, y=pressure, colour=Station))+
+  geom_point(size=0.5)+
+  scale_y_reverse()+
+  xlab("Temperature(°C)")+
+  ylab("Depth(m)")+
+  facet_wrap(~Cruise, scale="free")+
+  theme_base()
+
 
