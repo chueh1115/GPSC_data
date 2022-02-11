@@ -4,7 +4,7 @@ Resp type: 	literature respiration rate
 Units   :   Fluxes: mg C /m2/d
 Standing stocks:    mg C /m2
 
-Tung 2021.02.04
+Tung 2021.02.11
 
 #################################################################
 
@@ -13,7 +13,7 @@ Tung 2021.02.04
 
 SEDSS   		= 350270	{mgC/m2}
 BACSS		= 65.31	{mgC/m2}
-MEISS		= 0.69	{mgC/m2}
+MEISS		= 1.49	{mgC/m2}
 MACSS		= 3.65	{mgC/m2}
 
 !-- Constraints
@@ -46,8 +46,8 @@ maxSEDbe  	= 0.24	{fraction}
 !-- Estimated Respiration
 minMEIres = 0.0000712*MEISS 	{mgC/m2/d}
 maxMEIres = 0.0228*MEISS	   	{mgC/m2/d}
-minMACres = 0.0000712*MACSS   {mgC/m2/d}
-maxMACres =0.0228*MACSS		    {mgC/m2/d}
+minMACres = 0.0000712*MACSS     	{mgC/m2/d}
+maxMACres =0.0228*MACSS		{mgC/m2/d}
 
 
 ################################ END PARAMETERS                     
@@ -84,7 +84,6 @@ SED  ->  EXP_S	!Sediment export
 SED  ->  BAC	!SED uptaken by bacteria
 SED  ->  MEI 	!SED uptaken by meiofauna
 SED  ->  MAC 	!SED uptaken by macrofauna
-
 !-- BACteria
 BAC  ->  SED	!viral lysis
 BAC  ->  MEI	!bac grazed by meiofauna

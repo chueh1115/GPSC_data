@@ -6,8 +6,7 @@ Resp type: 	SCOC_calculated based on Mahaut et al. 1995
 Units   :   Fluxes: mg C /m2/d
 Standing stocks:    mg C /m2
 
-Tung 2021.01.19
-
+Tung 2021.02.11
 #################################################################
 
 ################################ PARAMETERS 
@@ -15,7 +14,7 @@ Tung 2021.01.19
 
 SEDSS   		= 350270	{mgC/m2}
 BACSS		= 65.31	{mgC/m2}
-MEISS		= 0.69	{mgC/m2}
+MEISS		= 1.49	{mgC/m2}
 MACSS		= 3.65	{mgC/m2}
 
 !-- Constraints
@@ -49,7 +48,7 @@ maxSEDbe  	= 0.24	{fraction}
 minBACres	=0.0		{mgC/m2/d}
 maxBACres	=21.7767		{mgC/m2/d}
 minMEIres	=0.0		{mgC/m2/d}
-maxMEIres	=0.008089244	{mgC/m2/d}
+maxMEIres	=0.006724609	{mgC/m2/d}
 minMACres	=0.0		{mgC/m2/d}
 maxMACres	=0.005423522	{mgC/m2/d}
 
@@ -87,7 +86,6 @@ SED  ->  EXP_S	!Sediment export
 SED  ->  BAC	!SED uptaken by bacteria
 SED  ->  MEI 	!SED uptaken by meiofauna
 SED  ->  MAC 	!SED uptaken by macrofauna
-
 !-- BACteria
 BAC  ->  SED	!viral lysis
 BAC  ->  MEI	!bac grazed by meiofauna

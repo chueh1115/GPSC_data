@@ -4,7 +4,7 @@ Resp type: 	literature respiration rate
 Units   :   Fluxes: mg C /m2/d
 Standing stocks:    mg C /m2
 
-Tung 2021.01.19
+Tung 2021.02.11
 
 #################################################################
 
@@ -13,7 +13,7 @@ Tung 2021.01.19
 
 SEDSS   		= 350270	{mgC/m2}
 BACSS		= 65.31	{mgC/m2}
-MEISS		= 0.69	{mgC/m2}
+MEISS		= 1.49	{mgC/m2}
 MACSS		= 3.65	{mgC/m2}
 
 !-- Constraints
