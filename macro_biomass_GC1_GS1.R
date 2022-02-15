@@ -87,7 +87,7 @@ GS1_macro<-GPSC_macro_size %>% filter(Station=="GS1")
 levels(factor(GS1_macro$Type))
 #fix Cylinder and cylinder
 GS1_x<-GS1_macro %>% filter(Type=="Cylinder") %>% mutate(Type="cylinder")
-GS1_macro<-GS1_macro %>% filter(Type!="Cylinder") %>% full_join(x)
+GS1_macro<-GS1_macro %>% filter(Type!="Cylinder") %>% full_join(GS1_x)
 levels(factor(GS1_macro$Type))
 
 #with C value-> type=LW2C

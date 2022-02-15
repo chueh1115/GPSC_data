@@ -7,6 +7,7 @@ Units   :   Fluxes: mg C /m2/d
 Standing stocks:    mg C /m2
 
 Tung 2021.02.11
+
 #################################################################
 
 ################################ PARAMETERS 
@@ -86,6 +87,7 @@ SED  ->  EXP_S	!Sediment export
 SED  ->  BAC	!SED uptaken by bacteria
 SED  ->  MEI 	!SED uptaken by meiofauna
 SED  ->  MAC 	!SED uptaken by macrofauna
+
 !-- BACteria
 BAC  ->  SED	!viral lysis
 BAC  ->  MEI	!bac grazed by meiofauna
@@ -164,6 +166,7 @@ MEI->DIC_W=  [minMEIres,maxMEIres]
 MACcs - MAC -> SED= [minMACae ,maxMACae]*MACcs
 !net growth efficiency
 MACcs - MAC -> SED - MAC->DIC_W	=  [minMACnge,maxMACnge]* MACcs-[minMACnge,maxMACnge]* MAC -> SED	
+
 !pb
 MACcs - MAC -> SED - MAC->DIC_W	=  [minMACpb,maxMACpb]*MACSS	! macro production
 MAC->DIC_W=  [minMACres,maxMACres]

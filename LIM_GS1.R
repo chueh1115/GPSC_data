@@ -6,7 +6,7 @@ library(splus2R)
 #-- Define directory that contains the input file
 DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
 #-- Read the ascii files
-File<- paste(DataDir,"GS1_LIM_MR.input",sep="")  
+File<- paste(DataDir,"GS1_LIM_SCOC_calculated_MACMEI.input",sep="")  
 LIM<- Setup(file=File) 
 #Parsimonious####
 # Find the solution range of each flow
@@ -16,7 +16,7 @@ pars <- Lsei(LIM, parsimonious = TRUE)
 # Print your ranges and parsimonious solution on screen
 SSA<-data.frame(flowSol, parsimonious=pars$X)
 # plot parsimonious result
-plotweb(Flowmatrix(LIM),main="GS1_MR",
+plotweb(Flowmatrix(LIM),main="GS1_calculated_RES",
         sub="(mgC/m2/d)",val=F, val.size = 0.6,
         lab.size=0.8)
 

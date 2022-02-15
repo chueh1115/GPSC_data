@@ -6,7 +6,7 @@ library(splus2R)
 #-- Define directory that contains the input file
 DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
 #-- Read the ascii files
-File<- paste(DataDir,"GC1_LIM_SCOC_calculated.input",sep="")  
+File<- paste(DataDir,"GC1_LIM_SCOC_calculated_BAC.input",sep="")  
 LIM<- Setup(file=File) 
 #Parsimonious####
 # Find the solution range of each flow

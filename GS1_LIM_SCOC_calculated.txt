@@ -48,7 +48,7 @@ maxSEDbe  	= 0.24	{fraction}
 minBACres	=0.0		{mgC/m2/d}
 maxBACres	=16.01272	{mgC/m2/d}
 minMEIres	=0.0		{mgC/m2/d}
-maxMEIres	=0.004205803	{mgC/m2/d}
+maxMEIres	=0.003188334	{mgC/m2/d}
 minMACres	=0.0		{mgC/m2/d}
 maxMACres	=0.002583627	{mgC/m2/d}
 
