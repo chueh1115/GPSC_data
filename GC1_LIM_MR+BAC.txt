@@ -53,7 +53,7 @@ minSEDbe  	= 0.0	{fraction}
 maxSEDbe  	= 0.24	{fraction}
 !calculated respiration
 minBACres	=0.0		{mgC/m2/d}
-maxBACres	=21.7767		{mgC/m2/d}
+maxBACres	=21.7767	{mgC/m2/d}
 ################################ END PARAMETERS                     
 
 ################################ STOCK 

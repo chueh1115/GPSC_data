@@ -1,6 +1,6 @@
 Data    :   Input file for GC1 under-determined LIM
 Resp type:  maintenance respiration+
-  BAC= 30% of TOU (Mahaut et al. 1995)
+            BAC= 30% of TOU (Mahaut et al. 1995)
 
 Units   :   Fluxes: mg C /m2/d
 Standing stocks:    mg C /m2
@@ -20,39 +20,39 @@ MACmr= Tlim * 0.01 * MACSS
 
 
 !-- Stocks
-SEDSS   		= 350270	{mgC/m2}
+SEDSS   = 350270{mgC/m2}
 BACSS		= 65.31	{mgC/m2}
 MEISS		= 1.49	{mgC/m2}
 MACSS		= 3.65	{mgC/m2}
 
 !-- Constraints
 !growth efficiency
-minBACge  	= 0.02   	{fraction}
+minBACge  	= 0.02  {fraction}
 maxBACge  	= 0.61	{fraction}
 
 !assimilation efficiency
 minMEIae  	= 0.456   	{fraction}
-maxMEIae  	= 0.699	{fraction}
-minMACae  	= 0.6  	{fraction}
-maxMACae  	= 0.7	{fraction}
+maxMEIae  	= 0.699	    {fraction}
+minMACae  	= 0.6  	    {fraction}
+maxMACae  	= 0.7	      {fraction}
 
 !PB ratio
 minMEIpb  	=  0.009   		{fraction}
-maxMEIpb  	=  0.0493		{fraction}
-minMACpb  	=  0.000849	{fraction}
-maxMACpb  	=  0.00477	{fraction}
+maxMEIpb  	=  0.0493		  {fraction}
+minMACpb  	=  0.000849	  {fraction}
+maxMACpb  	=  0.00477  	{fraction}
 
 !net growth efficiency
-minMEInge	= 0.3	{fraction}
-maxMEInge	= 0.5	{fraction}
-minMACnge  	= 0.6	{fraction}
+minMEInge	= 0.3	    {fraction}
+maxMEInge	= 0.5   	{fraction}
+minMACnge  	= 0.6	  {fraction}
 maxMACnge  	= 0.72	{fraction}
 
 !burial efficiency
-minSEDbe  	= 0.0	{fraction}
+minSEDbe  	= 0.0	  {fraction}
 maxSEDbe  	= 0.24	{fraction}
 !calculated respiration
-minBACres	=0.0		{mgC/m2/d}
+minBACres	=0.0	    	{mgC/m2/d}
 maxBACres	=21.7767		{mgC/m2/d}
 ################################ END PARAMETERS                     
 
@@ -122,7 +122,7 @@ MAC		=0.0
 ################################ EQUATION 
 ! Definition of the equalities for the equality equation
 
-POC_W  ->  SED=53.85	{mgC/m2/d}
+POC_W  ->  SED = 53.85	{mgC/m2/d}
 
 ################################ END EQUATION
 

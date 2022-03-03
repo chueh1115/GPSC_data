@@ -4,7 +4,7 @@ library(LIM)
 library(splus2R)
 #MODEL SETUP####
 #-- Define directory that contains the input file
-DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
+DataDir <- "C:/Users/user/Downloads/chueh/GPSC_data/"
 #-- Read the ascii files
 File<- paste(DataDir,"GS1_LIM_MR+BAC.input",sep="")  
 LIM<- Setup(file=File) 
@@ -39,48 +39,57 @@ xs <- xsample(E    = LIM$A,
               jmp  = (xranges[,2] - xranges[,1])/jumpsize,
               x0   = x0,
               iter = iter)
-nameoutput <- "GC1_CR_10000_100.Rdata" #1000=iteration
+nameoutput <- "GS1_CR_10000_100.Rdata" #1000=iteration
 save(xs, LIM, file=nameoutput)
 
 #check#### 
 #1) if the number of iterations is high enough to produces convergence of mean and sd
 #2) if the range of sampled values cover the range of possible solutions.
-
-
+#advice: examine a couple of flows(3 or so) of different magnitudes
+#flow 8: BAC->MAC (10^-2)
+#flow 9: BAC->DIC_W (10^1)
+#flow 15: MAC->DIC_W (10^-3)
 step <- 10 #step size you want to sample on iteration
 #if iteration <1000 use 1; if >1000, use iteration/1000 
-flownr  <- 16 #which flow you want to examine
-#advice: examine a couple of flows(3 or so) of different magnitudes
-#flow 2: SED->EXP_S
-#flow 8: BAC->MEI
-#flow 10: BAC->DIC_W
-#flow 16: MAC->DIC_W
-load(file=nameoutput)
-nsample <- iter/step
-means   <- vector("numeric", nsample)
-sdevs   <- vector("numeric", nsample)
 
-for (i in 1:nsample){
-  random   <- sort(runif(iter), index.return=TRUE)
-  sdevs[i] <-   sd(xs$X[random$ix[1:(i*step)], flownr])
-  means[i] <- mean(xs$X[random$ix[1:(i*step)], flownr])
-}
-plot(means)
+load(file=nameoutput)
+flownrs <- c(8,9,15)
+nsample <- iter/step
 meanvalues <- cbind(LIM$Unknowns, colMeans(xs$X))
 standarddev <- cbind(LIM$Unknowns, sqrt(diag(var(xs$X))))
-# need a measure of when mean and sd not significantly fluctuate anymore
-# calculate fluctuation reduction
-# Error margin of 2% of average stand. dev.
-stdevofflow <- as.numeric(standarddev[flownr, 2])
-standarddev[flownr,2]
-errormargin <- stdevofflow * 0.02
-plot(sdevs)
-abline(h = stdevofflow + errormargin/2)
-abline(h = stdevofflow - errormargin/2)
-
 LA<-data.frame(flow=LIM$Unknowns, 
                mean=colMeans(xs$X),
                sd=sqrt(diag(var(xs$X))))
+for(flownr in flownrs){
+  means   <- vector("numeric", nsample)
+  sdevs   <- vector("numeric", nsample)
+  for(i in 1:nsample){
+    random   <- sort(runif(iter), index.return=TRUE)
+    sdevs[i] <-   sd(xs$X[random$ix[1:(i*step)], flownr])
+    means[i] <- mean(xs$X[random$ix[1:(i*step)], flownr])
+  }
+  # need a measure of when mean and sd not significantly fluctuate anymore
+  # calculate fluctuation reduction
+  # Error margin of 2% of average stand. dev.
+  flowname<-LA[flownr,1]
+  outname<-paste("GS1","flow nr",flownr,sep="_")
+  png(paste("convergence",outname,".png",sep = "_"))
+  par(mfrow=c(2,1))
+  MEANofflow <- as.numeric(meanvalues[flownr, 2])
+  plotMEANmax<-MEANofflow+MEANofflow*0.1
+  plotMEANmin<-MEANofflow-MEANofflow*0.1
+  plot(means,ylim=c(plotMEANmin,plotMEANmax),
+       main=paste("Convergence of Mean","GS1",flowname,sep = "_"))
+  stdevofflow <- as.numeric(standarddev[flownr, 2])
+  errormargin <- stdevofflow * 0.02
+  plotSDmax<-stdevofflow+stdevofflow*0.1
+  plotSDmin<-stdevofflow-stdevofflow*0.1
+  plot(sdevs,ylim=c(plotSDmin,plotSDmax),
+       main=paste("Convergence of SD","GS1",flowname,sep = "_"))
+  abline(h = stdevofflow + errormargin/2)
+  abline(h = stdevofflow - errormargin/2)
+  dev.off()
+}
 
 #check jumpsize before increase the number of iteration 
 #check jumpsize=coverage of the whole range solution
@@ -105,8 +114,7 @@ points(x=LA$mean,1:16,col=10,pch=18)
 segments(LA$sd,1:16,LA$sd,1:16)
 legend("topright",pch=c(16,18,NA),lty=c(NA,NA,1),col=c(1,10,1),
        legend = c("Parsimonious","Montecarlo mean","sd"))
-title(main = "Carbon flows of GC1_CR_res (mgC/m2/d)")
-
+title(main = "Carbon flows of GS1_CR+MR_res (mgC/m2/d)")
 
 #calculate flows####
 biosed<-data.frame(flow=c("SED-BAC",
