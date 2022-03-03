@@ -40,7 +40,7 @@ xs <- xsample(E    = LIM$A,
               jmp  = (xranges[,2] - xranges[,1])/jumpsize,
               x0   = x0,
               iter = iter)
-nameoutput <- "GC1_CR_10000_100.Rdata" #1000=iteration
+nameoutput <- "GC1_MR+BAC_10000_100.Rdata" #name_iter_size
 save(xs, LIM, file=nameoutput)
 
 #check#### 
@@ -106,7 +106,7 @@ points(x=LA$mean,1:16,col=10,pch=18)
 segments(LA$sd,1:16,LA$sd,1:16)
 legend("topright",pch=c(16,18,NA),lty=c(NA,NA,1),col=c(1,10,1),
        legend = c("Parsimonious","Montecarlo mean","sd"))
-title(main = "Carbon flows of GC1_CR_res (mgC/m2/d)")
+title(main = "Carbon flows of GC1_CR+MR_res (mgC/m2/d)")
 
 
 #calculate flows####
