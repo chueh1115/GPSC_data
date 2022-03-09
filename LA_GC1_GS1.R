@@ -4,7 +4,7 @@ library(LIM)
 library(splus2R)
 #MODEL SETUP####
 #-- Define directory that contains the input file
-DataDir <- "C:/Users/user/Downloads/chueh/GPSC_data/"
+DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
 #GC1####
 #-- Read the ascii files
 File_GC<- paste(DataDir,"GC1_LIM_MR+BAC.input",sep="")  
@@ -73,18 +73,22 @@ LA_GS<-data.frame(flow=LIM_GS$Unknowns,
                   sd=sqrt(diag(var(xs_GS$X))))
 
 library(ggplot2)
+library(dplyr)
+library(ggbreak)
 LA_GC$Station<-"GC"
 LA_GS$Station<-"GS"
 LA<-rbind(LA_GC,LA_GS)
-
-ggplot(data= ,aes(x = flow, y = mean))+
-  geom_bar(stat = "identity",position = position_dodge(),
-           aes(fill=Station))+
-  geom_errorbar(aes(ymin=mean, ymax=mean+sd), size=0.5,width=0.1,alpha=0.9, colour="black")+
-  ylab(expression(OC~(mg~C~m^-2)))+
+LA %>% filter(flow!="POC_W->SED") %>% 
+ggplot(aes(x = flow, y = mean,
+           fill=Station,
+           ymin=mean-sd,ymax=mean+sd))+
+  geom_bar(stat = "identity",position = "dodge",
+           aes(fill=Station),width = 0.5)+
+  ylab(expression(OC~(mg~C~m^-2~d^-1)))+
+  geom_errorbar(stat = "identity", position = "dodge", width = 0.5) + 
   ylim(0, NA)+
-  facet_wrap(~Station,scales = "free_y")+
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+
-  labs(title = "Meiofauna")+
-  geom_point(data=MEI_point,aes(x=Cruise,y=total_biomass/area), color = "darkblue",size=0.5)
+  labs(title = "Carbon flow")+
+  scale_fill_brewer(palette="Paired") + 
+  theme_minimal()+
+  coord_flip()+
+  scale_y_break(c(20,35),scales = "free")
