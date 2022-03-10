@@ -124,38 +124,3 @@ for (i in 1:nrow(GS_xs$X)){
 }
 save(NetInd_GS,file="GS1_Indices.Rdata")
 
-# Calculate the mean and standard deviation of all indices
-NI_mean_GS <- colMeans(NetInd_GS)
-NI_stdev_GS <- sqrt(diag(var(NetInd_GS)))
-#plot####
-library(tidyverse)
-library(ggplot2)
-GC<-as.data.frame(NetInd_GC)
-GC<-pivot_longer(GC,
-                 cols=c("T..", "TST", "Ltot", "C", "Tij",
-                        "TSTC","FCI","APL","AMI"),
-                 names_to = "index",
-                 values_to = "value")
-GC$station<-"GC1"
-GS<-as.data.frame(NetInd_GS)
-GS<-pivot_longer(GS,
-                 cols=c("T..", "TST", "Ltot", "C", "Tij",
-                        "TSTC","FCI","APL","AMI"),
-                 names_to = "index",
-                 values_to = "value")
-GS$station<-"GS1"
-ind<-rbind(GC,GS)
-ind %>%
-  ggplot(aes(x = station, y = value))+
-  ge
-  geom_point()+
-  facet_wrap(~index,scales = "free_y")+
-  theme_bw()
-
-  facet_wrap(~index,scales = "free_y")+
-  theme_bw()
-
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+
-  labs(title = "Macrofauna")+
-  geom_point(data=MAC_point,aes(x=Cruise,y=OC/area), color = "darkblue",size=0.5)
-
