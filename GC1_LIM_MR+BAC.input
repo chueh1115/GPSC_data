@@ -148,7 +148,7 @@ MACgr= MAC -> DIC_W - MACmr
 ! The definition of the variable names is in the variable section (see above)
 
 !-- SED
-!SED  ->  EXP_S = [minSEDbe,maxSEDbe]* SEDSS !SED burial rate
+SED  ->  EXP_S = [minSEDbe,maxSEDbe]* POC_W  ->  SED !SED burial rate
 
 !-- BACteria
 !growth efficiency

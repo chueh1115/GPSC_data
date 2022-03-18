@@ -4,7 +4,7 @@ library(LIM)
 library(splus2R)
 #MODEL SETUP####
 #-- Define directory that contains the input file
-DataDir <- "C:/Users/user/Downloads/chueh/GPSC_data/"
+DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
 #-- Read the ascii files
 File<- paste(DataDir,"GC1_LIM_MR+BAC.input",sep="")  
 LIM<- Setup(file=File) 

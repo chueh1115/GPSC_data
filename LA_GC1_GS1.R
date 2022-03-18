@@ -12,11 +12,12 @@ LIM_GC<- Setup(file=File_GC)
 #Parsimonious####
 # Find the solution range of each flow
 flowSol_GC <- Xranges(LIM_GC)
+
 # Find the parsimonious solution of each flow
 pars_GC <- Lsei(LIM_GC, parsimonious = TRUE)
 # Print your ranges and parsimonious solution on screen
 SSA_GC<-data.frame(flowSol_GC, parsimonious=pars_GC$X)
-
+?Xranges
 #Likelihood####
 #-- SSA is not based on ecological theory
 xranges_GC<-Xranges(LIM_GC)
