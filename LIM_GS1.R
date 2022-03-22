@@ -4,9 +4,9 @@ library(LIM)
 library(splus2R)
 #MODEL SETUP####
 #-- Define directory that contains the input file
-DataDir <- "C:/Users/user/Downloads/chueh/GPSC_data/"
+DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
 #-- Read the ascii files
-File<- paste(DataDir,"GS1_LIM_MR+BAC.input",sep="")  
+File<- paste(DataDir,"GS1_LIM_Revised.input",sep="")  
 LIM<- Setup(file=File) 
 #Parsimonious####
 # Find the solution range of each flow
@@ -109,7 +109,7 @@ mean(samplerange$percCover, na.rm = T)
 #compare results from SSA and LA method
 name<-LIM$Unknowns
 dotchart(x=pars$X,col = 1,
-         pch=16,xlim = c(0,60))
+         pch=16,xlim = c(0,150))
 points(x=LA$mean,1:16,col=10,pch=18)
 segments(LA$sd,1:16,LA$sd,1:16)
 legend("topright",pch=c(16,18,NA),lty=c(NA,NA,1),col=c(1,10,1),

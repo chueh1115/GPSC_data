@@ -140,3 +140,34 @@ SED%>%
   geom_hline(data = Mean_SED, aes(yintercept = Mean))+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
+ggsave("test.png",path = "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/figure")
+
+
+rm(list = ls())
+#burial####
+#(Huh et al., 2009)
+#GC1: 1.0g/cm2/y
+#GS1: 0.43g/cm2/y
+GC1<-1*10000/365 #g/m2/d
+GS1<-0.43*10000/365 #g/m2/d\
+GPSC_sediment<- read_excel("Canyon_sediment.xlsx")
+GC1_sed<-GPSC_sediment %>% 
+  filter(Station=="GC1") %>% 
+  filter(TOC!="NA")
+GPSC_sediment <- read_excel("data/GPSC_sediment/GPSC_sediment_2021.08.16_ysl.xlsx", 
+                            col_types = c("text", "text", "text", 
+                                          "text", "numeric", "numeric", "numeric", 
+                                          "numeric", "numeric", "numeric", 
+                                          "numeric", "numeric", "numeric", 
+                                          "numeric", "numeric", "numeric", 
+                                          "numeric", "text", "text", "numeric"))
+GS1_sed<-GPSC_sediment %>% filter(Station=="GS1"&Cruise!="OR1_1132")%>%  filter(TOC!="NA")
+
+meanGC1<-mean(GC1_sed$TOC/100)
+sdGC1<-sd(GC1_sed$TOC/100)
+meanGS1<-mean(GS1_sed$TOC/100)
+sdGS1<-sd(GS1_sed$TOC/100)
+
+burial<-data.frame(max=c((meanGC1+sdGC1)*GC1*1000,(meanGS1+sdGS1)*GS1*1000),
+                   min=c((meanGC1-sdGC1)*GC1*1000,(meanGS1-sdGS1)*GS1*1000),
+                   station=c("GC1","GS1"))
