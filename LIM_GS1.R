@@ -16,7 +16,7 @@ pars <- Lsei(LIM, parsimonious = TRUE)
 # Print your ranges and parsimonious solution on screen
 SSA<-data.frame(flowSol, parsimonious=pars$X)
 # plot parsimonious result
-plotweb(Flowmatrix(LIM),main="GS1_MR+BAC",
+plotweb(Flowmatrix(LIM),main="GS1",
         sub="(mgC/m2/d)",val=F, val.size = 0.6,
         lab.size=0.8)
 
@@ -39,7 +39,7 @@ xs <- xsample(E    = LIM$A,
               jmp  = (xranges[,2] - xranges[,1])/jumpsize,
               x0   = x0,
               iter = iter)
-nameoutput <- "GS1_CR_10000_100.Rdata" #1000=iteration
+nameoutput <- "GS1.Rdata" #1000=iteration
 save(xs, LIM, file=nameoutput)
 
 #check#### 
@@ -107,14 +107,24 @@ mean(samplerange$percCover, na.rm = T)
 
 #segment plot####
 #compare results from SSA and LA method
+png(paste("Carbon flows of GS1.png",sep = "_"))
 name<-LIM$Unknowns
-dotchart(x=pars$X,col = 1,
-         pch=16,xlim = c(0,150))
-points(x=LA$mean,1:16,col=10,pch=18)
-segments(LA$sd,1:16,LA$sd,1:16)
-legend("topright",pch=c(16,18,NA),lty=c(NA,NA,1),col=c(1,10,1),
-       legend = c("Parsimonious","Montecarlo mean","sd"))
-title(main = "Carbon flows of GS1_CR+MR_res (mgC/m2/d)")
+dotchart(x=log10(pars$X),col = 1,pch=16,xaxt = "n",xlim = c(-3,3))
+points(x=log10(LA$mean),1:16,col=10,pch=18)
+legend("topright",pch=c(16,18),col=c(1,10),
+       legend = c("Parsimonious","Montecarlo mean"))
+atx<-axTicks(1)
+labels<-sapply(atx,function(i)as.expression(bquote(10^.(i))))
+axis(1,at=atx,labels = labels)
+title(main = "Carbon flows of GS1",
+      xlab= "Flow (mgC/m2/d) ")
+dev.off()
+
+
+
+
+
+
 
 #calculate flows####
 biosed<-data.frame(flow=c("SED-BAC",

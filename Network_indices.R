@@ -3,7 +3,7 @@ library(LIM)
 library(NetIndices)
 #GC####
 # Load your .Rdata file and view the iteration samples.
-load("GC1_MR+BAC_10000_100.Rdata")
+load("GC1.Rdata")
 GC_xs<-xs
 GC_LIM<-LIM
 # # of iteration= # of matrices #in our case=10000
@@ -73,7 +73,7 @@ NI_stdev_GC <- sqrt(diag(var(NetInd_GC)))
 
 #GS####
 # Load your .Rdata file and view the iteration samples.
-load("GS1_CR_10000_100.Rdata")
+load("GS1.Rdata")
 GS_xs<-xs
 GS_LIM<-LIM
 # # of iteration= # of matrices #in our case=10000
