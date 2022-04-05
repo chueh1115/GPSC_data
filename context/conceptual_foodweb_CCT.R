@@ -1,12 +1,13 @@
-
 library(DiagrammeR)
-grViz("
-digraph dot {
-graph[layout=dot,
-  rankdir=TB]
+library(DiagrammeRsvg)
+library(magrittr)
+library(rsvg)
+
+concepural<-grViz("
+digraph{
+   graph[rankdir=TB]
   
-  {
-    rank=1
+  {rank=1
     node [shape=box style=filled fillcolor=lightsteelblue]
     POC_W [label=POC]
     EXP_S [label=Burial]
@@ -21,39 +22,41 @@ graph[layout=dot,
     BAC [label=Bacteria]
     MEI [label=Meiofauna]
     MAC [label=Macrofauna]
-    
-  }
+    }  
   
+  {
   # POM input
-  POC_W -> DET [color = tomato]
+  POC_W -> DET [color = tomato fontcolor=steelblue3 ]
   # POM output
-  DET -> EXP_S [color = tomato]
+  DET -> EXP_S [color = tomato fontcolor=steelblue3 ] 
   
   # Deposit feeding
-  DET -> BAC   [color = black]
-  DET -> MEI   [color = black]
-  DET -> MAC   [color = black]
+  DET -> BAC   [color = black  fontcolor=steelblue3 ]
+  DET -> MEI   [color = black fontcolor=steelblue3 ]  
+  DET -> MAC   [color = black  fontcolor=steelblue3 ]
   
   #Faeces
-  BAC -> DET   [color = black]
-  MEI -> DET   [color = black]
-  MAC -> DET   [color = black]
+  BAC -> DET   [color = black fontcolor=steelblue3 ]  
+  MEI -> DET   [color = black fontcolor=steelblue3 ]  
+  MAC -> DET   [color = black  fontcolor=steelblue3]
   
   # Interaction
   # BAC
-  BAC -> MEI   [color = black]
-  BAC -> MAC   [color = black]
+  BAC -> MEI   [color = black fontcolor=steelblue3]
+  BAC -> MAC   [color = black fontcolor=steelblue3]
 
   # MEI
-  MEI -> MAC   [color = black]
+  MEI -> MAC   [color = black fontcolor=steelblue3]
   
   # Predation
-  MEI -> EXP_B   [color = gray]
-  MAC -> EXP_B   [color = gray]
+  MEI -> EXP_B   [color = gray fontcolor=steelblue3]
+  MAC -> EXP_B   [color = gray fontcolor=steelblue3]
  
   # Respiration
-  BAC -> DIC_W [color = gray]
-  MEI -> DIC_W [color = gray]
-  MAC -> DIC_W [color = gray]
-  
-}")
+  BAC -> DIC_W [color = gray fontcolor=steelblue3]
+  MEI -> DIC_W [color = gray fontcolor=steelblue3]
+  MAC -> DIC_W [color = gray fontcolor=steelblue3]
+}}
+")
+concepural%>%
+  export_svg %>% charToRaw %>% rsvg_png("conceptual_graph.png")
