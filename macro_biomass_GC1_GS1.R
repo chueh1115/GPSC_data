@@ -149,6 +149,7 @@ GS1_bar<-GS1_eliminated %>% group_by(Cruise, Station) %>%
 MAC_bar<-rbind(GC1_bar,GS1_bar)
 MAC_point<-rbind(GC1_eliminated,GS1_eliminated)
 
+
 MAC_bar%>%
   ggplot(aes(x = Cruise, y = mean))+
   geom_bar(stat = "identity",position = position_dodge(),
@@ -157,8 +158,16 @@ MAC_bar%>%
   ylab(expression(OC~(mg~C~m^-2)))+
   ylim(0, NA)+
   facet_wrap(~Station,scales = "free_y")+
-  theme_bw()+
+  theme_bw()+labs(title = "Macrofauna")+
+  guides(color = guide_legend(override.aes = list(size = 3) ) )+
   theme(axis.text.x = element_text(angle = 30, hjust = 1))+
-  labs(title = "Macrofauna")+
-  geom_point(data=MAC_point,aes(x=Cruise,y=OC/area), color = "darkblue",size=0.5)
-
+  theme(strip.text = element_text(size=20))+
+  theme(legend.title = element_text(size = 20),
+        legend.text = element_text(size = 18),
+        axis.title.x = element_text(size = 18),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 18),
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))+
+  geom_point(data=MAC_point,aes(x=Cruise,y=OC/area), color = "darkblue",size=2)
+ggsave("OC_macro.png",width = 12, height =9)  

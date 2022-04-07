@@ -11,17 +11,33 @@ GC1_macro_abundance<-GPSC_macro_abundance%>% filter(Station=="GC1")
 GS1_macro_abundance<-GPSC_macro_abundance%>% filter(Station=="GS1")
 
 #GC1####
+library(pals)
 abu<-rbind(GC1_macro_abundance,GS1_macro_abundance)
+color<-as.vector(stepped(length(unique(abu$Taxon))+2)[-c(1:2)])
 abu %>% 
   ggplot(aes(x=Cruise,y=Abundance))+
   geom_bar(stat = "identity",position = "stack",
             aes(fill=Taxon))+
   ylab(expression(Abundance~(n)))+
-  ylim(0, NA)+
-  facet_wrap(~Station,scales = "free_y")+
+  labs(title = "Macrofauna")+
+  scale_fill_manual(values =color )+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 30, hjust = 1))+
-  labs(title = "Macrofauna")
+  theme(strip.text = element_text(size=20))+
+  theme(legend.title = element_text(size = 18),
+        legend.text = element_text(size = 15),
+        axis.title.x = element_text(size = 18),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 18),
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))+
+  ylim(0, NA)+
+  guides(fill=guide_legend(ncol=1))+
+  facet_wrap(~Station,scales = "free_y")
+  
+  
+ggsave("abu_macro.png",width = 12, height =9)  
+
 #calculation
 GC1mean<-GC1_macro_abundance %>% 
   group_by(Cruise,Station) %>% 
