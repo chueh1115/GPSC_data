@@ -60,9 +60,18 @@ BAC%>%
   ylab(expression(OC~(mg~C~m^-2)))+
   xlab("Count")+ 
   ylim(0, NA)+
-  geom_hline(data = Mean_BAC, aes(yintercept = Mean),color=c("red","darkblue"))+
+  geom_hline(data = Mean_BAC, aes(yintercept = Mean),color=c("red","darkblue"),
+             linetype=5)+
   scale_linetype_manual(name = "Mean", values = c(2, 2),
-                        guide = guide_legend(override.aes = list(color = c("red","darkblue"))))+
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))+
-  labs(title = "Bacteria")
+                        guide = guide_legend(override.aes = list(color = c("red3","darkcyan"))))+
+  theme_bw()+labs(title = "Bacteria")+
+  guides(color = guide_legend(override.aes = list(size = 3) ) )+
+  theme(legend.title = element_text(size = 20),
+        legend.text = element_text(size = 18),
+        axis.title.x = element_text(size = 18),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 18),
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+ggsave("OC_bac.png",width = 12, height =9)  

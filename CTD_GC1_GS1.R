@@ -133,7 +133,10 @@ ggplot(data=GC1GS1, aes(x=Temperature, y=pressure, colour=Station))+
   xlab("Temperature(°C)")+
   ylab("Depth(m)")+
   facet_wrap(~Cruise, scale="free")+
-  theme_base()
+  theme_base()+
+  guides(color = guide_legend(override.aes = list(size = 3) ) )+
+  theme(legend.text = element_text(size = 15))
+ggsave("CTD_temp.png",width = 12, height =9)
 #Salinity
 ggplot(data=GC1GS1, aes(x=Salinity, y=pressure, colour=Station))+
   geom_point(size=0.5)+
@@ -141,7 +144,10 @@ ggplot(data=GC1GS1, aes(x=Salinity, y=pressure, colour=Station))+
   xlab("Salinity(PSU)")+
   ylab("Depth(m)")+
   facet_wrap(~Cruise, scale="free")+
-  theme_base()
+  theme_base()+
+  guides(color = guide_legend(override.aes = list(size = 3) ) )+
+  theme(legend.text = element_text(size = 15))
+ggsave("CTD_sal.png",width = 12, height =9)
 #Density
 ggplot(data=GC1GS1, aes(x=Density, y=pressure, colour=Station))+
   geom_point(size=0.5)+
@@ -149,7 +155,10 @@ ggplot(data=GC1GS1, aes(x=Density, y=pressure, colour=Station))+
   xlab(expression(Density~(kg~m^-3)))+
   ylab("Depth(m)")+
   facet_wrap(~Cruise, scale="free")+
-  theme_base()
+  theme_base()+
+  guides(color = guide_legend(override.aes = list(size = 3) ) )+
+  theme(legend.text = element_text(size = 15))
+ggsave("CTD_den.png",width = 12, height =9)
 #Transmissivity
 ggplot(data=GC1GS1, aes(x=transmissometer, y=pressure, colour=Station))+
   geom_point(size=0.5)+
@@ -157,4 +166,7 @@ ggplot(data=GC1GS1, aes(x=transmissometer, y=pressure, colour=Station))+
   xlab("Transmissivity(%)")+
   ylab("Depth(m)")+
   facet_wrap(~Cruise, scale="free")+
-  theme_base()
+  theme_base()+
+  guides(color = guide_legend(override.aes = list(size = 3) ) )+
+  theme(legend.text = element_text(size = 15))
+ggsave("CTD_trans.png",width = 12, height =9)
