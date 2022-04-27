@@ -184,3 +184,7 @@ sdGS1<-sd(GS1_sed$TOC/100)
 burial<-data.frame(max=c((meanGC1+sdGC1)*GC1*1000,(meanGS1+sdGS1)*GS1*1000),
                    min=c((meanGC1-sdGC1)*GC1*1000,(meanGS1-sdGS1)*GS1*1000),
                    station=c("GC1","GS1"))
+meanGC1*GC1*1000
+sdGC1*GC1*1000
+meanGS1*GS1*1000
+sdGS1*GS1*1000

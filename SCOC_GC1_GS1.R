@@ -66,12 +66,22 @@ TOU %>%
   geom_bar(stat="identity",position = "dodge")+
   ylab(expression(Total~Oxygen~Utilization~(mgC~m^-2~day^-1)))+
   ylim(0, NA)+
+  geom_hline(data = Mean_SED, aes(yintercept = Mean),
+             linetype=5)+
   geom_hline(aes(yintercept = meanGC1,linetype="GC1"),color="red")+
   geom_hline(aes(yintercept = meanGS1,linetype="GS1"),color="darkblue")+
   scale_linetype_manual(name = "Mean", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("red","darkblue"))))+
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+  theme_bw()+labs(title = "TOU")+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+
+  theme(legend.title = element_text(size = 20),
+        legend.text = element_text(size = 18),
+        axis.title.x = element_text(size = 18),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 18),
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))
+ggsave("TOU.png",width = 12, height =9)
 
 rm(list = ls())
 #DOU####
@@ -120,7 +130,6 @@ DOU<-rbind(DOU_GC1,DOU_GS1) %>%
 #acquire mean/sd DOU value of 2 stations
 DOU$mean[DOU$Station=="GC1"]
 meanGC1<-mean(DOU$mean[DOU$Station=="GC1"])
-sdGC1
 sdGC1<-sd(DOU$mean[DOU$Station=="GC1"])
 meanGS1<-mean(DOU$mean[DOU$Station=="GS1"])
 sdGS1<-sd(DOU$mean[DOU$Station=="GS1"])
@@ -134,9 +143,17 @@ DOU %>%
   geom_hline(aes(yintercept = meanGS1,linetype="GS1"),color="darkblue")+
   scale_linetype_manual(name = "Mean", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("red","darkblue"))))+
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
-meanGS1-sdGS1
+  theme_bw()+labs(title = "DOU")+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))+
+  theme(legend.title = element_text(size = 20),
+        legend.text = element_text(size = 18),
+        axis.title.x = element_text(size = 18),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 18),
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))
+ggsave("DOU.png",width = 12, height =9)
+
 #BMU=TOU-DOU####
 rm(list = ls())
 #filter GC1/GS1 and not include NOR1_T011(no det data)
@@ -223,5 +240,14 @@ com %>% filter(OU%ni%c("TOU","In_situ_TOU")) %>%
   ylab(expression(Total~Oxygen~Utilization~(mgC~O2~m^-2~day^-1)))+
   ylim(0, NA)+
   facet_wrap(~Station)+
-  theme_bw()+
+  theme_bw()+labs(title = "SCOC")+
+  theme(strip.text = element_text(size=20))+
+  theme(legend.title = element_text(size = 20),
+        legend.text = element_text(size = 18),
+        axis.title.x = element_text(size = 18),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 18),
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))+
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
+ggsave("SCOC.png",width = 12, height =9)

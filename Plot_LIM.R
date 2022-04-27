@@ -34,7 +34,7 @@ digraph{
   
   {rank=1
     node [shape=box style=filled fillcolor=lightsteelblue]
-    POC_W [label=POC]
+    POC_W [label=TOC]
     EXP_S [label=Burial]
     DIC_W [label=DIC]
     EXP_B [label=Predation]
@@ -93,7 +93,7 @@ digraph{
   
   {rank=1
     node [shape=box style=filled fillcolor=lightsteelblue]
-    POC_W [label=POC]
+    POC_W [label=TOC]
     EXP_S [label=Burial]
     DIC_W [label=DIC]
     EXP_B [label=Predation]
