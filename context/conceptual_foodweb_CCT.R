@@ -9,7 +9,7 @@ digraph{
   
   {rank=1
     node [shape=box style=filled fillcolor=lightsteelblue]
-    POC_W [label=TOC]
+    POC_W [label=POC]
     EXP_S [label=Burial]
     DIC_W [label=DIC]
     EXP_B [label=Predation]

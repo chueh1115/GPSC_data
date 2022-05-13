@@ -16,8 +16,8 @@ GC_LIM<-LIM
 #Tij – Average link weight
 
 # Refer to documentation if necessary.
-Indices <- c("T..", "TST", "Ltot", "C", "Tij",
-             "TSTC","FCI","APL",
+Indices <- c("T..", "TST", 
+             "TSTC","FCI",
              "AMI")
 
 # Create a matrix for the indices to be calculated for each iteration
@@ -55,20 +55,12 @@ for (i in 1:nrow(GC_xs$X)){
   # Calculate indices
   NetInd_GC[i, "T.."] <- GenInd (Flow=fm_GC, Import=Import, Export=Export)$T..
   NetInd_GC[i, "TST"] <- GenInd (Flow=fm_GC, Import=Import, Export=Export)$TST
-  NetInd_GC[i, "Ltot"]<- GenInd (Flow=fm_GC, Import=Import, Export=Export)$Ltot
-  NetInd_GC[i, "C"]   <- GenInd (Flow=fm_GC, Import=Import, Export=Export)$C
-  NetInd_GC[i, "Tij"] <- GenInd (Flow=fm_GC, Import=Import, Export=Export)$Tij
   NetInd_GC[i, "TSTC"] <-PathInd (Flow=fm_GC, Import=Import, Export=Export)$TSTC
   NetInd_GC[i, "FCI"]  <-PathInd (Flow=fm_GC, Import=Import, Export=Export)$FCI
-  NetInd_GC[i, "APL"]  <-PathInd (Flow=fm_GC, Import=Import, Export=Export)$APL
   NetInd_GC[i, "AMI"]  <- UncInd (Flow=fm_GC, Import=Import, Export=Export)$AMI
 
   }
 save(NetInd_GC,file="GC1_Indices.Rdata")
-
-# Calculate the mean and standard deviation of all indices
-NI_mean_GC <- colMeans(NetInd_GC)
-NI_stdev_GC <- sqrt(diag(var(NetInd_GC)))
 
 
 #GS####
@@ -113,14 +105,50 @@ for (i in 1:nrow(GS_xs$X)){
   # Calculate indices
   NetInd_GS[i, "T.."] <- GenInd (Flow=fm_GS, Import=Import, Export=Export)$T..
   NetInd_GS[i, "TST"] <- GenInd (Flow=fm_GS, Import=Import, Export=Export)$TST
-  NetInd_GS[i, "Ltot"]<- GenInd (Flow=fm_GS, Import=Import, Export=Export)$Ltot
-  NetInd_GS[i, "C"]   <- GenInd (Flow=fm_GS, Import=Import, Export=Export)$C
-  NetInd_GS[i, "Tij"] <- GenInd (Flow=fm_GS, Import=Import, Export=Export)$Tij
   NetInd_GS[i, "TSTC"] <-PathInd (Flow=fm_GS, Import=Import, Export=Export)$TSTC
   NetInd_GS[i, "FCI"]  <-PathInd (Flow=fm_GS, Import=Import, Export=Export)$FCI
-  NetInd_GS[i, "APL"]  <-PathInd (Flow=fm_GS, Import=Import, Export=Export)$APL
   NetInd_GS[i, "AMI"]  <- UncInd (Flow=fm_GS, Import=Import, Export=Export)$AMI
   
 }
 save(NetInd_GS,file="GS1_Indices.Rdata")
 
+
+library(dplyr)
+# Calculate the mean and standard deviation of all indices
+GC <- as.data.frame(NetInd_GC)
+GS <- as.data.frame(NetInd_GS)
+median(GC)
+median<-data.frame(T..=c(median(GC$T..),median(GS$T..)),
+                   TST=c(median(GC$TST),median(GS$TST)),
+                   TSTC=c(median(GC$TSTC),median(GS$TSTC)),
+                   FCI=c(median(GC$FCI),median(GS$FCI)),
+                   AMI=c(median(GC$AMI),median(GS$AMI)))
+# Set seed for significance calculations. 
+# Using this seed 200 random values are rendered which are used in
+# the significance calculations.
+# (Indices of used seeds: 1 to 101)
+set.seed(983359626)
+seeds <- sample(100)
+seeds
+findoverlap <- function(matrix1, matrix2, seed1, seed2){
+  # Randomize order of rows in both matrices, unless stated otherwise (seed1 = 0)
+  if(seed1 != 0){
+    set.seed(seed1)
+    rand1 <- sample(nrow(matrix1))
+    matrix1 <- matrix1[rand1,,drop = FALSE]
+    set.seed(seed2)
+    rand2 <- sample(nrow(matrix2))
+    matrix2 <- matrix2[rand2,,drop = FALSE]
+  }
+  
+  # Find fraction of rows where value in M1 > M2.
+  fractions <- rep(NA, length(ncol(matrix1)))
+  
+  for(i in 1:ncol(matrix1)){
+    fractions[i] <- length(which(matrix1[,i] > matrix2[,i]))/length(matrix1[,i])
+  }
+  
+  return(fractions)
+}
+fraction <- findoverlap(NetInd_GC,NetInd_GS, seeds[60], seeds[10])
+fraction

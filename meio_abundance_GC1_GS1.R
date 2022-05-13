@@ -68,4 +68,3 @@ abu %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ggsave("abu_meio_nematode.png",width = 12, height =9)
 
-                 

@@ -3,6 +3,7 @@ library(readxl)
 library(dplyr)
 library(writexl)
 library(openxlsx)
+library(ggplot2)
 #abundance####
 GPSC_macro_abundance <- read_excel("data/GPSC_macro_sorting/GPSC_macro_sorting_2021.11.23.xlsx", 
                                    sheet = "Specimen")

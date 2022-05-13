@@ -1,0 +1,34 @@
+改動統計方法(maybe無母數多factor)
+method: 考慮seasonality 的原因
+2. turnover rate
+SCOC/OC (Rowe)
+做法:比較實測跟model值
+DOU/細菌
+BOU/(macro+meio)
+TOU/(OC全部)
+TOC改回POC
+
+改segment plot 0->0+很小的值，用虛線表示是0
+
+-discussion
+跟結果有關
+1. model output (在OU部分) 沒有不合理
+-TOU相加還是同個magnitude
+-DOU看起來合理(跟實際測量吻合)
+-BMU可能低估/物理性擾動/生物擾動/化學性消耗
+
+2. 細菌最容易使用的是DOC可能造成矛盾(低估的原因)
+
+2. network indices 值代表的意義(最主要控制的flow)+延伸
+
+!!! model並沒有考慮到export (真正的POC應該要更高; 呼應文獻)
+
+6.predation flow(的意義) + 跟生物10%efficiency 比較
+
+3.比較parsimonious的差別
+
+4.跟blue carbon (海草床or紅樹林)的burial efficiency 比較 (林幸助P)
+
+5. 目的:
+1.從生物+沉積物的角度看碳的流量(給了最低的TOC; 進入system, burial%, 回到水層)
+2.深海的POC<SCOC(很多sediment trap研究)但不合看看在introduction怎麼插進採樣工具給的bias(e.g. sediment trap)

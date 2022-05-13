@@ -105,8 +105,24 @@ mean(samplerange$percCover, na.rm = T)
 #increase jumpsize= decrease jumpsize parameter
 #take a longer time to run
 
-#segment plot####
-#compare results from SSA and LA method
+#plot LA vs PAR
+rm(list=ls())
+#-- Load the LIM (and limSolve) package 
+library(LIM)
+library(splus2R)
+DataDir <- "C:/Users/user/Downloads/labWei/Tung_thesis/GPSC_data/"
+File<- paste(DataDir,"GS1_LIM_Revised.input",sep="")  
+LIM<- Setup(file=File) 
+#Parsimonious####
+# Find the solution range of each flow
+flowSol <- Xranges(LIM)
+# Find the parsimonious solution of each flow
+pars <- Lsei(LIM, parsimonious = TRUE)
+
+load("GS1.Rdata")
+LA<-data.frame(flow=LIM$Unknowns, 
+               mean=colMeans(xs$X),
+               sd=sqrt(diag(var(xs$X))))
 png(paste("Carbon flows of GS1.png",sep = "_"))
 name<-LIM$Unknowns
 dotchart(x=log10(pars$X),col = 1,pch=16,xaxt = "n",xlim = c(-3,3))
