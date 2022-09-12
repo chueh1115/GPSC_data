@@ -28,6 +28,7 @@ library(magrittr)
 library(rsvg)
 GC1
 #GC1####
+#slightly revise POC->SED and SED->EXP_S
 GC1_graph<-grViz("
 digraph{
    graph[rankdir=TB]
@@ -51,9 +52,9 @@ digraph{
   
   {
   # POM input
-  POC_W -> DET [color = tomato fontcolor=steelblue3 label=131.081 penwidth=10.88]
+  POC_W -> DET [color = tomato fontcolor=steelblue3 label=131.081 penwidth=15]
   # POM output
-  DET -> EXP_S [color = tomato fontcolor=steelblue3 label=115.770 penwidth=10.75]
+  DET -> EXP_S [color = tomato fontcolor=steelblue3 label=115.770 penwidth=12]
   
   # Deposit feeding
   DET -> BAC   [color = black  fontcolor=steelblue3 label=24.653 penwidth=9.20]
@@ -79,12 +80,13 @@ digraph{
  
   # Respiration
   BAC -> DIC_W [color = gray fontcolor=steelblue3 label=15.134 penwidth=8.72]
-  MEI -> DIC_W [color = gray fontcolor=steelblue3 label=0.048 penwidth=3.77]
+  MEI -> DIC_W [color = gray fontcolor=steelblue3 label=0.107 penwidth=3.77]
   MAC -> DIC_W [color = gray fontcolor=steelblue3 label=0.008 penwidth=1.15]
 }}
 ")
 GC1_graph%>%
   export_svg %>% charToRaw %>% rsvg_png("GC1_graph.png")
+
 #GS1####
 GS1
 GS1_graph<-grViz("

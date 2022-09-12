@@ -124,6 +124,7 @@ load("GC1.Rdata")
 LA<-data.frame(flow=LIM$Unknowns, 
                mean=colMeans(xs$X),
                sd=sqrt(diag(var(xs$X))))
+
 #segment plot####
 #compare results from SSA and LA method
 png(paste("Carbon flows of GC1.png",sep = "_"))
@@ -147,8 +148,11 @@ dev.off()
 #axTicks(): gives you the location of the ticks on the X-axis (x=1) or Y-axis (x=2)
 #bquote() converts expressions to language, but can replace a variable with its value.
 #as.expression() makes the language object coming from bquote() an expression. 
+#SCOC Calculation####
 
-
+TOU<-sum(LA$mean[9],LA$mean[12],LA$mean[15])
+BOU<-sum(LA$mean[12],LA$mean[15])
+DOU<-LA$mean[9]
 #calculate flows####
 biosed<-data.frame(flow=c("SED-BAC",
                           "SED-MEI",

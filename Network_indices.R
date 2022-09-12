@@ -112,12 +112,14 @@ for (i in 1:nrow(GS_xs$X)){
 }
 save(NetInd_GS,file="GS1_Indices.Rdata")
 
-
+load("GC1_Indices.Rdata")
+load("GS1_Indices.Rdata")
 library(dplyr)
 # Calculate the mean and standard deviation of all indices
 GC <- as.data.frame(NetInd_GC)
 GS <- as.data.frame(NetInd_GS)
-median(GC)
+median(GC$FCI)
+median(GS$FCI)
 median<-data.frame(T..=c(median(GC$T..),median(GS$T..)),
                    TST=c(median(GC$TST),median(GS$TST)),
                    TSTC=c(median(GC$TSTC),median(GS$TSTC)),

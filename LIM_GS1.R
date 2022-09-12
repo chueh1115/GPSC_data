@@ -135,7 +135,11 @@ axis(1,at=atx,labels = labels)
 title(main = "Carbon flows of GS1",
       xlab= "Flow (mgC/m2/d) ")
 dev.off()
+#SCOC Calculation####
 
+TOU<-sum(LA$mean[9],LA$mean[12],LA$mean[15])
+BOU<-sum(LA$mean[12],LA$mean[15])
+DOU<-LA$mean[9]
 
 
 

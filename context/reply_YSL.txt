@@ -1,0 +1,59 @@
+
+O2->C轉換
+TOU
+#calculation: from In_situ_DO_flux (mmol O2/m2/d) to carbon unit(mg C/m2/d)
+#mmolO2 -> mgO2:  33.191  mgO2/mmolO2 
+#mgO2 -> mgC   :  0.309   mgC/mgO2  
+TOU=In_situ_DO_flux*(-1)*33.191*0.309
+DOU:
+#nmol/cm2/s -> mmol/m2/d
+#1e4*3600*24/1e6 = 864
+DOU=In_situ_Integrated_Prod*(-864)*33.191*0.309
+
+(p27)This can lead to the perception that you focus only on phytodetritus, and neglect terrestrial OM transported via gravity flow).
+從定義上說是，但是依照目前model的structure來說我們沒有特別區分沉積物OM來源
+
+Eq. 7 seems to be wrong. ->see ppt
+LIM equaation: E, A, G (流量方向的矩陣)
+
+(p35). For example, if the straight pathway was 10 and FCI=0.5, meaning that an average unit of inflow travels 15  because it cycled through the system
+15=10*(1+0.5)
+(p37)Why does temperature lower than 20 oC lead to a correction factor higher than 1?->see ppt
+
+改TOU 圖y-axis->OK
+ (p42) The main problem arose from the contradiction between low biomass and relatively high oxygen utilization .
+1) Could this be caused by the underrepresented meiofauna data? For example, for the cruises with high TOU and BMU (OR1-1219 and -1242), meiofauna was not analyzed.
+有可能->meiofauan的資料太少了，但覺得主因不是meio
+
+
+(p43)Do you mean these numbers were used for both sites as min and max?
+yes
+(p46) How was "predation (as an export pathway)" modeled?->see ppt
+(p46)
+1) The analytical procedure of TOC does not differentiate detrital and biotic OC
+yes->but we don't have better data?
+2) How about adjusting the TOC stock to the same deposition elapsed time?
+
+!(p.49) Why OC only half in GPSC?
+(p.51)Lack of megafauna and fish in the food web model or in the field observations? 
+both-> no field observation->not included in the model
+(p.53)What are "generally accepted values"?
+the burial efficiency in other place in the world/ or common used ref
+
+(p59)This one (Pb-210 based) is more like burial rate. Better compare with trap data.
+
+
+(p60)
+The reference value (Pb-210 based estimates) is mostly considered as OC burial flux by geochemists.->yes
+(p60)The Pb-210 method measured the average flux over 100-200 years. Traps measured flux over weeks. TOU measured OC flux over hours.The disparity between different methods has been attributed to the Sadler effect.
+
+(p62)"...it would be higher in low disturbance conditions." What is the basis for this?
+根據developmental status->發展越高=系統越成熟(演替階段後期)
+但GC1長期處於物理擾動中，系統發展=可能一直在演替初期(loop) 但GS1相對的擾動較低發展程度較高
+
+!(p63)The text seems contradictory to earlier arguments. On one hand, OC flux (Pb-210-based estimates) is insufficient to sustain the system. On the other hand, the OC turnover time is decades to a century.
+How the sediment OC stock is calculated (integration depth) will strongly affect the turnover time.->yes
+
+(p64)this literature source is still accepted as less strict data  (van Ovelen et al., 2010). 
+unclear, why?
+因為不是跟採樣同時進行而是文獻裡儘管跟採樣點相近位置(就被認為是lower quality)

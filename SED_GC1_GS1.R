@@ -19,7 +19,7 @@ GC1<- GC1_sed %>%
   group_by(Cruise, Station,Deployment,Section) %>% 
   summarise(SED=SED)
 
-
+mean(GC1_sed$TOC,na.rm = T)
 
 #find multilayer
 GC1 %>% 
@@ -102,6 +102,7 @@ GS1_sing_sum<-subset(GS1, Cruise %!in% GS1_multilayer, Cruise & SED)%>%
 GS1_SEDsum<-rbind(GS1_sing_sum,GS1_ml_sum) %>% arrange(Cruise)
 GS1_SEDsum
 GS1_SEDsum<-data.frame(GS1_SEDsum,Season=c("AU","SP","SP","SU","AU","AU","SP","SP","AU"))
+mean(GS1_sed$TOC,na.rm = T)
 
 GS1_SEDsum %>% 
   ggplot(aes(x = Cruise, y = SED))+
@@ -143,7 +144,7 @@ SED%>%
   ylim(0, NA)+
   geom_hline(data = Mean_SED, aes(yintercept = Mean),
              linetype=5)+
-  theme_bw()+
+  theme_bw()+labs(title = "Detritus")+
   guides(color = guide_legend(override.aes = list(size = 3) ) )+
   theme(strip.text = element_text(size=20))+
   theme(legend.title = element_text(size = 20),
@@ -151,7 +152,8 @@ SED%>%
         axis.title.x = element_text(size = 18),
         axis.text.x = element_text(size = 15),
         axis.title.y = element_text(size = 18),
-        axis.text.y = element_text(size = 15))+
+        axis.text.y = element_text(size = 15),
+        title = element_text(size=25))+
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ggsave("OC_sed.png",width = 12, height =9)  
 
@@ -162,11 +164,11 @@ rm(list = ls())
 #GC1: 1.0g/cm2/y
 #GS1: 0.43g/cm2/y
 GC1<-1*10000/365 #g/m2/d
-GS1<-0.43*10000/365 #g/m2/d\
+GS1<-0.43*10000/365 #g/m2/d
+
 GPSC_sediment<- read_excel("Canyon_sediment.xlsx")
 GC1_sed<-GPSC_sediment %>% 
-  filter(Station=="GC1") %>% 
-  filter(TOC!="NA")
+  filter(Station=="GC1")%>% filter(TOC!="NA")
 GPSC_sediment <- read_excel("data/GPSC_sediment/GPSC_sediment_2021.08.16_ysl.xlsx", 
                             col_types = c("text", "text", "text", 
                                           "text", "numeric", "numeric", "numeric", 

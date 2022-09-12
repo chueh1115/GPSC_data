@@ -70,7 +70,7 @@ permanova_tou
 
 
 
-
+rm(list = ls())
 #DOU####
 GPSC_DOU <- read_csv("data/GPSC_o2_profile/GPSC_DOU.csv")
 GPSC_DOU<-as.data.frame(GPSC_DOU)

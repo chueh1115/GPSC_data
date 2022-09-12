@@ -185,16 +185,16 @@ com <- cbind(DOU, TOU[match(id2, id1), c("DO_flux.mean", "In_situ_DO_flux.mean")
 #rename
 names(com)[7:10] <- c("DOU", "DOU.sd", "TOU", "In_situ_TOU")
 #calculate BOU
-com$BOU <- com$TOU-com$DOU
+com$BMU <- com$TOU-com$DOU
 
 #summarise mean flux value of each cruise, 
 #then use pivot_longer to rearrange dataframe 
 com<-com %>% 
   group_by(Cruise,Station,Habitat) %>% 
   summarise(DOU=mean(DOU),
-            BOU=mean(BOU),
+            BMU=mean(BMU),
             TOU=mean(TOU))%>% 
-  pivot_longer(cols = c("DOU","BOU","TOU"),
+  pivot_longer(cols = c("DOU","BMU","TOU"),
                names_to = "OU",
                values_to = "O2_flux")
 `%ni%` <- Negate(`%in%`)
@@ -216,18 +216,18 @@ com<-com %>%
 #mmolO2/m2/d->mgC/m2/d
 com$O2_flux<-com$O2_flux*(-1)*33.191*0.309
 #mean/sd value of each station
-meanBOU_GC1<-mean(com$O2_flux[com$Station=="GC1"& com$OU =="BOU"],na.rm = T)
-sdBOU_GC1<-sd(com$O2_flux[com$Station=="GC1"& com$OU =="BOU"],na.rm = T)
-meanBOU_GS1<-mean(com$O2_flux[com$Station=="GS1"& com$OU =="BOU"],na.rm = T)
-sdBOU_GS1<-sd(com$O2_flux[com$Station=="GS1"& com$OU =="BOU"],na.rm = T)
+meanBMU_GC1<-mean(com$O2_flux[com$Station=="GC1"& com$OU =="BMU"],na.rm = T)
+sdBMU_GC1<-sd(com$O2_flux[com$Station=="GC1"& com$OU =="BMU"],na.rm = T)
+meanBMU_GS1<-mean(com$O2_flux[com$Station=="GS1"& com$OU =="BMU"],na.rm = T)
+sdBMU_GS1<-sd(com$O2_flux[com$Station=="GS1"& com$OU =="BMU"],na.rm = T)
 #bar plot of BOU of each cruise and mean value of 2 stations (mgC/m2/d)
-com %>% filter(OU=="BOU"&O2_flux>0) %>%
+com %>% filter(OU=="BMU"&O2_flux>0) %>%
   ggplot(aes(x=Cruise,y=O2_flux,fill=Station))+
   geom_bar(stat="identity",position = "dodge")+
   ylab(expression(Benthos~Mediated~oxygen~Utilization~(mg~C~m^-2~day^-1)))+
   ylim(0, NA)+
-  geom_hline(aes(yintercept = meanBOU_GC1,linetype="GC1"),color="red")+
-  geom_hline(aes(yintercept = meanBOU_GS1,linetype="GS1"),color="darkblue")+
+  geom_hline(aes(yintercept = meanBMU_GC1,linetype="GC1"),color="red")+
+  geom_hline(aes(yintercept = meanBMU_GS1,linetype="GS1"),color="darkblue")+
   scale_linetype_manual(name = "Mean", values = c(2, 2), 
                         guide = guide_legend(override.aes = list(color = c("red","darkblue"))))+
   theme_bw()+
@@ -237,7 +237,7 @@ com %>% filter(OU=="BOU"&O2_flux>0) %>%
 com %>% filter(OU%ni%c("TOU","In_situ_TOU")) %>% 
   ggplot(aes(x=Cruise,y=O2_flux,fill=OU))+
   geom_bar(stat = "identity",position = "stack")+
-  ylab(expression(Total~Oxygen~Utilization~(mgC~O2~m^-2~day^-1)))+
+  ylab(expression(Total~Oxygen~Utilization~(mgC~m^-2~day^-1)))+
   ylim(0, NA)+
   facet_wrap(~Station)+
   theme_bw()+labs(title = "SCOC")+

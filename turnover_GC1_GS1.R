@@ -136,25 +136,25 @@ GS1_LA<-data.frame(flow=GS1_LIM$Unknowns,
 TOU_MOD_GS1<-GS1_LA$mean[9]+GS1_LA$mean[12]+GS1_LA$mean[15]
 DOU_MOD_GS1<-GS1_LA$mean[9]
 BOU_MOD_GS1<-GS1_LA$mean[12]+GS1_LA$mean[15]
-#1. TOU_MEAS/(total)OC####
-TR_total_GC1<-TOU_mean_GC1/total_GC1
-TR_total_GS1<-TOU_mean_GC1/total_GS1
+#1.(total)OC/TOU_MEAS/####
+TR_total_GC1<-total_GC1/TOU_mean_GC1
+TR_total_GS1<-total_GS1/TOU_mean_GC1
 
 #2. TOU_MODEL/(total)OC####
-TR_MOD_total_GC1<-TOU_MOD_GC1/total_GC1
-TR_MOD_total_GS1<-TOU_MOD_GS1/total_GS1
+TR_MOD_total_GC1<-total_GC1/TOU_MOD_GC1
+TR_MOD_total_GS1<-total_GS1/TOU_MOD_GS1
 #3. DOU_MEAS/BAC_OC####
-TR_BAC_GC1<-DOU_mean_GC1/OC$GC1[2]
-TR_BAC_GS1<-DOU_mean_GS1/OC$GS1[2]
+TR_BAC_GC1<-OC$GC1[2]/DOU_mean_GC1
+TR_BAC_GS1<-OC$GS1[2]/DOU_mean_GS1
 #4. DOU_MODEL/BAC_OC####
-TR_MOD_BAC_GC1<-DOU_MOD_GC1/OC$GC1[2]
-TR_MOD_BAC_GS1<-DOU_MOD_GS1/OC$GS1[2]
+TR_MOD_BAC_GC1<-OC$GC1[2]/DOU_MOD_GC1
+TR_MOD_BAC_GS1<-OC$GS1[2]/DOU_MOD_GS1
 #5. BOU_MEAS/(MEI+MAC)_OC####
-TR_B_GC1<-BOU_mean_GC1/B_GC1
-TR_B_GS1<-BOU_mean_GS1/B_GS1
+TR_B_GC1<-B_GC1/BOU_mean_GC1
+TR_B_GS1<-B_GS1/BOU_mean_GS1
 #6. BOU_MODEL/(MEI+MAC)_OC####
-TR_MOD_B_GC1<-BOU_MOD_GC1/B_GC1
-TR_MOD_B_GS1<-BOU_MOD_GS1/B_GS1
+TR_MOD_B_GC1<-B_GC1/BOU_MOD_GC1
+TR_MOD_B_GS1<-B_GS1/BOU_MOD_GS1
 #compare####
 TR_TOU<-data.frame()
 TR_MEAS<-round(data.frame(GC1=c(TR_total_GC1,TR_BAC_GC1,TR_B_GC1),
